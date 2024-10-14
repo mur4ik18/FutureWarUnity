@@ -32,6 +32,8 @@ public class FirtsPersoneCamera : MonoBehaviour
         float inpX = Input.GetAxis("Mouse X") * mSensivity;
         float inpY = Input.GetAxis("Mouse Y") * mSensivity;
 
+        float inpArrowsX = Input.GetAxis("") * mSensivity;
+
         // rotate camera verical
         cameraVerticalRotation -= inpY;
         //cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -verticalRotationLimit, verticalRotationLimit);

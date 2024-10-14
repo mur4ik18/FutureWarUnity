@@ -14,8 +14,13 @@ public class PlayerMovement: MonoBehaviour
 
     FirtsPersoneCamera camera;
 
+    // input
     public float horizontalInput;
     public float verticalInput;
+
+    // J'ai ajouté ça pour avoir la possibilité de tourner la tete du robot
+    public bool leftRotation;
+    public bool rightRotation;
 
     public float rotationThreshold = 45f;
 
@@ -59,6 +64,9 @@ public class PlayerMovement: MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        leftRotation = Input.GetKey(KeyCode.LeftArrow);
+        rightRotation = Input.GetKey(KeyCode.RightArrow);
     }
 
     private void MovePlayer()

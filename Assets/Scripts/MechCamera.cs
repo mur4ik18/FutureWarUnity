@@ -25,7 +25,7 @@ public class MechCamera : MonoBehaviour
         cameraHorizontalRotation += mouseX;
 
         // Rotate the player's body horizontally (yaw)
-        playerBody.Rotate(Vector3.up * mouseX);
+        //playerBody.Rotate(Vector3.up * mouseX);
 
         // Rotate the camera vertically (pitch), and clamp to prevent flipping
         cameraVerticalRotation -= mouseY;
