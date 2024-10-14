@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MechCamera : MonoBehaviour
 {
+
+    public Transform XRcam;
     public Transform playerBody;
     public float mouseSensitivity = 200f;
     public float cameraVerticalRotation = 0f;
@@ -33,6 +35,7 @@ public class MechCamera : MonoBehaviour
 
         // Apply the rotation to the camera's local rotation
         transform.localRotation = Quaternion.Euler(cameraVerticalRotation, 0f, 0f);
+        //transform.localRotation = XRcam.localRotation;
         // transform.localRotation = Quaternion.Euler(0f, playerBody.localRotation.y * 10f, 0f);
     }
 }

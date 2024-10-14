@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.XR;
+using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement: MonoBehaviour
 {
+
+
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
@@ -39,6 +44,7 @@ public class PlayerMovement: MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         camera = (FirtsPersoneCamera)cam.GetComponent(typeof(FirtsPersoneCamera));
@@ -47,6 +53,7 @@ public class PlayerMovement: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         MovePlayer();
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
@@ -63,7 +70,10 @@ public class PlayerMovement: MonoBehaviour
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        
         verticalInput = Input.GetAxisRaw("Vertical");
+
+
 
         leftRotation = Input.GetKey(KeyCode.LeftArrow);
         rightRotation = Input.GetKey(KeyCode.RightArrow);
