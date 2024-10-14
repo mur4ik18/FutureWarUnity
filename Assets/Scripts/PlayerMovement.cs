@@ -74,7 +74,6 @@ public class PlayerMovement: MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
 
-
         leftRotation = Input.GetKey(KeyCode.LeftArrow);
         rightRotation = Input.GetKey(KeyCode.RightArrow);
     }
