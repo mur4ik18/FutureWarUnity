@@ -23,7 +23,7 @@ public class RightArm : MonoBehaviour
         // Here I get controller rotation
         orientation = rightArm.rotation;
         // To curb y rotation
-        orientation.y = Mathf.Clamp(orientation.y, -verticalRotationLimit, verticalRotationLimit);
+        //orientation.y = Mathf.Clamp(orientation.y, -verticalRotationLimit, verticalRotationLimit);
         // copy rotation with my curbed values
         transform.rotation = orientation;
     }

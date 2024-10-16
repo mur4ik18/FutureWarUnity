@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class Move : MonoBehaviour
 {
     public InputActionReference move;
+    public InputActionReference rotate;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -28,6 +29,7 @@ public class Move : MonoBehaviour
         rb.freezeRotation = true;
 
         move.action.Enable();
+        rotate.action.Enable();
     }
 
     // Update is called once per frame
@@ -45,11 +47,15 @@ public class Move : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        Vector2 horizontalInput = rotate.action.ReadValue<Vector2>();
+        transform.Rotate(Vector3.up * (horizontalInput.x));
     }
 
     private void OnDisable()
     {
         move.action.Disable();
+        rotate.action.Disable();
     }
 
     private void SpeedControl()

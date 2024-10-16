@@ -7,6 +7,7 @@ public class LeftArm : MonoBehaviour
 
     // left controller for getting direction
     public Transform leftArm;
+    public Transform body;
     // limitation of Y angle 
     public float verticalRotationLimit = 0.2f;
     // To show data
@@ -23,7 +24,11 @@ public class LeftArm : MonoBehaviour
         // Here I get controller rotation
         orientation = leftArm.rotation;
         // To curb y rotation
-        orientation.y = Mathf.Clamp(orientation.y, -verticalRotationLimit, verticalRotationLimit);
+        
+        //Quaternion bodyRotation = body.rotation;
+        //float rotationDifference =Mathf.DeltaAngle(bodyRotation.y, orientation.y);
+
+        //orientation.y = Mathf.Clamp(rotationDifference, -verticalRotationLimit, verticalRotationLimit);
         // copy rotation with my curbed values
         transform.rotation = orientation;
     }
