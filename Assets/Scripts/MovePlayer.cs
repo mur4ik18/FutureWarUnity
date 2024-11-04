@@ -12,6 +12,7 @@ public class Move : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
+    public float rotationSpeed = 1f;
 
     Vector3 moveDirection;
     Rigidbody rb;
@@ -39,17 +40,24 @@ public class Move : MonoBehaviour
 
 
         Vector2 verticalInput = move.action.ReadValue<Vector2>();
-        moveDirection = transform.forward * -(verticalInput.x);
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        
+        moveDirection = transform.forward * (verticalInput.y);
+
+        if (moveDirection.x != 0 && moveDirection.y != 0 && moveDirection.z != 0)
+        {
+            Debug.Log(moveDirection);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
         //transform.localEulerAngles = Vector3.zero;
 
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
-
         Vector2 horizontalInput = rotate.action.ReadValue<Vector2>();
-        transform.Rotate(Vector3.up * (horizontalInput.x));
+
+        float targetRotationY = horizontalInput.x * rotationSpeed;
+        Quaternion targetRotation = Quaternion.Euler(0, targetRotationY, 0) * transform.rotation;
+
+        Debug.Log("Rot : " + targetRotation);
+        transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        //transform.Rotate(Vector3.up , horizontalInput.x * rotationSpeed * Time.deltaTime);
     }
 
     private void OnDisable()

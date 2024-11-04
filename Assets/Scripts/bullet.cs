@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class bullet : MonoBehaviour
@@ -8,12 +9,13 @@ public class bullet : MonoBehaviour
 
     private void Awake()
     {
-        Destroy(gameObject, life);
+        //Destroy(gameObject, life);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(collision.gameObject);
+        Debug.Log("Idestroy " +  collision.gameObject.name);
+        //Destroy(collision.gameObject);
         Destroy(gameObject);
     }
 }
