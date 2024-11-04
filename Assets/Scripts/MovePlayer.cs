@@ -6,22 +6,18 @@ using UnityEngine.InputSystem;
 
 public class Move : MonoBehaviour
 {
+    // For getting input from controllers
     public InputActionReference move;
     public InputActionReference rotate;
 
     [Header("Movement")]
     public float moveSpeed;
-    public float groundDrag;
     public float rotationSpeed = 1f;
+    public float maxSpeed = 10f;
 
     Vector3 moveDirection;
     Rigidbody rb;
 
-
-    [Header("Ground check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    public bool grounded;
 
     // Start is called before the first frame update
     void Start()
@@ -36,45 +32,46 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-
         Vector2 verticalInput = move.action.ReadValue<Vector2>();
         
         moveDirection = transform.forward * (verticalInput.y);
 
+
+        // If there arn't input, there arn't moving
         if (moveDirection.x != 0 && moveDirection.y != 0 && moveDirection.z != 0)
         {
-            Debug.Log(moveDirection);
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-        }
-        //transform.localEulerAngles = Vector3.zero;
 
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            //Debug.Log(moveDirection);
+
+            // limit speed
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitVel.x, rb.velocity.y, limitVel.z);
+            }
+            else
+            {
+                rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            }
+            
+        }
+
+
+
+        // Rotatoin
         Vector2 horizontalInput = rotate.action.ReadValue<Vector2>();
 
         float targetRotationY = horizontalInput.x * rotationSpeed;
         Quaternion targetRotation = Quaternion.Euler(0, targetRotationY, 0) * transform.rotation;
 
-        Debug.Log("Rot : " + targetRotation);
+        //Debug.Log("Rot : " + targetRotation);
         transform.rotation = Quaternion.Slerp(this.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-        //transform.Rotate(Vector3.up , horizontalInput.x * rotationSpeed * Time.deltaTime);
     }
 
     private void OnDisable()
     {
         move.action.Disable();
         rotate.action.Disable();
-    }
-
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        // limit velocity if needed
-        if (flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitVel.x, rb.velocity.y, limitVel.z);
-        }
     }
 }

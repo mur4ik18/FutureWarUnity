@@ -9,13 +9,12 @@ public class bullet : MonoBehaviour
 
     private void Awake()
     {
-        //Destroy(gameObject, life);
+        Destroy(gameObject, life);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Idestroy " +  collision.gameObject.name);
-        //Destroy(collision.gameObject);
+        //Debug.Log("Idestroy " +  collision.gameObject.name);
         Destroy(gameObject);
     }
 }
