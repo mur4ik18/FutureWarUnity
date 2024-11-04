@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement: MonoBehaviour
 {
-    private InputDevice device;
+
 
     [Header("Movement")]
     public float moveSpeed;
@@ -44,15 +44,6 @@ public class PlayerMovement: MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        // get device connecté
-        var inputDevices = new List<InputDevice>();
-        InputDevices.GetDevicesWithCharacteristics(InputDeviceCharacteristics.Controller, inputDevices);
-
-        if (inputDevices.Count > 0)
-        {
-            device = inputDevices[0]; // Use the first found device
-        }
-
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -62,6 +53,7 @@ public class PlayerMovement: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         MovePlayer();
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
@@ -77,16 +69,10 @@ public class PlayerMovement: MonoBehaviour
 
     private void MyInput()
     {
-        Vector2 primary2DAxisValue;
-
-        if (device.TryGetFeatureValue(CommonUsages.primary2DAxis, out primary2DAxisValue))
-        {
-            // Use primary2DAxisValue.x and primary2DAxisValue.y for input
-            Debug.Log($"Primary 2D Axis: {primary2DAxisValue}");
-        }
-
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        
         verticalInput = Input.GetAxisRaw("Vertical");
+
 
         leftRotation = Input.GetKey(KeyCode.LeftArrow);
         rightRotation = Input.GetKey(KeyCode.RightArrow);
