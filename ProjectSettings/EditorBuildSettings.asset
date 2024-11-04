@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/XR Interaction Toolkit/2.5.4/Starter Assets/DemoScene.unity
     guid: 319dafa5c80f29f428dc1e0d03f04177
+  - enabled: 1
+    path: Assets/Mech FPS test.unity
+    guid: 272aee968a7514e61a21f82c6ae01a24
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: fbb2d30156f8d4d11b703486dde3250a, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 72ad132cfc8144f85908968438602ecc, type: 2}
